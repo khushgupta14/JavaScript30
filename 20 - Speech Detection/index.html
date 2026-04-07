@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Speech Detection</title>
+  <link rel="icon" href="https://fav.farm/✅" />
+</head>
+
+<body>
+  <h1>Voice Notepad</h1>
+  <button id="start-btn">Start Listening</button>
+  <div class="words" contenteditable>
+  </div>
+
+  <script>
+    window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    const recognition = new SpeechRecognition(); // Creates a new instance of the speech recognition object.
+    recognition.interimResults = true; // to show the words as you are speaking them, rather than waiting until you completely stop talking
+    recognition.lang = 'en-US';
+
+    let p = document.createElement('p');
+    const words = document.querySelector('.words');
+    words.appendChild(p);
+
+    recognition.addEventListener('result', e => {
+      const transcript = Array.from(e.results) // converts nodelist into an array
+        .map(result => result[0]) // // Extracts the primary guess (the most likely word) from each result object. Each result object has an array of possible words, but we just want the first one.
+        .map(result => result.transcript) // Extracts the actual text string (the words spoken) from that result object.
+        .join('');
+
+      const poopScript = transcript.replace(/poop|poo|shit|dump/gi, '💩');
+      p.textContent = poopScript;
+
+      if (e.results[0].isFinal) { //Checks if the user has stopped speaking
+        p = document.createElement('p');
+        words.appendChild(p); // append new paragraph to the DOM so that the next words will be in a new paragraph, rather than replacing the previous one.
+      }
+    });
+
+    recognition.addEventListener('end', recognition.start); // When the recognition ends, immediately start it back up again
+
+    const startBtn = document.getElementById('start-btn');
+
+    startBtn.addEventListener('click', () => {
+      recognition.start(); // turns on the microphone and starts the whole process when the page first loads.
+      startBtn.textContent = 'Listening...';
+      startBtn.style.background = '#ff4b4b';
+      startBtn.style.color = 'white';
+    });
+
+    recognition.addEventListener('end', () => {
+      startBtn.textContent = 'Start Listening';
+      startBtn.style.background = 'white';
+      startBtn.style.color = 'black';
+    });
+
+  </script>
+
+
+  <style>
+    html {
+      font-size: 10px;
+    }
+
+    body {
+      font-family: 'helvetica neue';
+      font-weight: 200;
+      font-size: 20px;
+      background-image: url(background.jpg);
+      background-size: cover;
+    }
+
+    .words {
+      max-width: 500px;
+      margin: 50px auto;
+      background: white;
+      border-radius: 5px;
+      box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.1);
+      padding: 1rem 2rem 1rem 5rem;
+      background: -webkit-gradient(linear, 0 0, 0 100%, from(#d9eaf3), color-stop(4%, #fff)) 0 4px;
+      background-size: 100% 3rem;
+      position: relative;
+      line-height: 3rem;
+    }
+
+    p {
+      margin: 0 0 3rem;
+    }
+
+    .words:before {
+      content: '';
+      position: absolute;
+      width: 4px;
+      top: 0;
+      left: 30px;
+      bottom: 0;
+      border: 1px solid;
+      border-color: transparent #efe4e4;
+    }
+
+    #start-btn {
+      display: block;
+      margin: 20px auto 0;
+      padding: 10px 20px;
+      font-size: 20px;
+      background: white;
+      border: 2px solid #333;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.1);
+      transition: all 0.2s;
+    }
+
+    #start-btn:active {
+      box-shadow: 0 0 0 rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      font-weight: 200;
+      font-size: 4rem;
+      margin-top: 40px;
+      margin-bottom: 50px;
+      font-weight: 800;
+    }
+  </style>
+
+</body>
+
+</html>

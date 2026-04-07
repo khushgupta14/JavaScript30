@@ -49,10 +49,14 @@ Here are some of the key modifications I made to the projects:
 ### 📸 Day 19 – Webcam Booth
 - Added **Ghosting Effect** and **Magic Colors** toggle buttons.
 - Added **Clear Strip** button that removes all captured photos.
-- Added **mirror effect** to flip the video and canvas
+- Added **Mirror effect** to flip the video and canvas
+
+### 🎤 Day 20 – Speech Detection
+- Added a manual **Start Listening button** to give users control over the microphone.
+
 ---
 
-## 📈 Challenge Progress (19/30 Completed)
+## 📈 Challenge Progress (20/30 Completed)
 
 - [x] Day 1: JavaScript Drum Kit
 - [x] Day 2: JS and CSS Clock
@@ -73,7 +77,7 @@ Here are some of the key modifications I made to the projects:
 - [x] Day 17: Sort Without Articles
 - [x] Day 18: Adding Up Times with Reduce
 - [x] Day 19: Webcam Booth
-- [ ] Day 20: Speech Detection
+- [x] Day 20: Speech Detection
 - [ ] Day 21: Geolocation
 - [ ] Day 22: Follow Along Link Highlighter
 - [ ] Day 23: Speech Synthesis
