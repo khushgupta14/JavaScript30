@@ -1,0 +1,142 @@
+html {
+  box-sizing: border-box;
+  font-size: 10px;
+  background: #8E24AA;
+  background: linear-gradient(45deg,  #42a5f5 0%,#478ed1 50%,#0d47a1 100%);
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  text-align: center;
+  font-family: 'Inconsolata', monospace;
+}
+
+.display__time-left {
+  font-weight: 100;
+  font-size: 20rem;
+  margin: 0;
+  color: black;
+  text-shadow: 4px 4px 0 rgba(0,0,0,0.05);
+}
+
+.timer {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.timer__controls {
+  display: flex;
+}
+
+.timer__controls > * {
+  flex: 1;
+}
+
+.timer__controls form {
+  flex: 1;
+  display: flex;
+}
+
+.timer__controls input {
+  flex: 1;
+  border: 0;
+  padding: 2rem;
+}
+
+.timer__button {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  color: white;
+  font-size: 2rem;
+  text-transform: uppercase;
+  background: rgba(0,0,0,0.1);
+  border-bottom: 3px solid rgba(0,0,0,0.2);
+  border-right: 1px solid rgba(0,0,0,0.2);
+  padding: 1rem;
+  font-family: 'Inconsolata', monospace;
+}
+
+.timer__button:hover,
+.timer__button:focus {
+  background: rgba(0,0,0,0.2);
+  outline: 0;
+}
+
+.display {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: url('background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.display__end-time {
+  font-size: 4rem;
+  color: black;
+}
+
+button[data-time="20"] { 
+  background-color: #FF5252;
+} 
+
+button[data-time="300"] { 
+  background-color: #FF7043;
+} 
+
+button[data-time="900"] { 
+  background-color: #FFCA28;
+} 
+
+button[data-time="1200"] { 
+  background-color: #66BB6A;
+} 
+
+button[data-time="3600"] { 
+  background-color: #26C6DA;
+}
+
+.progress {
+  width: 100%;
+  height: 15px; 
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+}
+
+.progress__filled {
+  width: 100%;
+  height: 100%;
+  background-color: #2ed573;
+  transition: width 1s linear; 
+}
+
+.stop-alarm {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  transition: all 0.2s;
+}
+
+.stop-alarm:hover {
+  transform: scale(1.05);
+}
+
+.hidden {
+  display: none !important;
+}
