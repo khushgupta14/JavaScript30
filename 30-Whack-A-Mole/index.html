@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Whack A Mole!</title>
+  <link href='https://fonts.googleapis.com/css?family=Amatic+SC:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="https://fav.farm/✅" />
+</head>
+
+<body>
+
+  <h1>Whack-a-mole!</h1>
+  <div class="stats">
+    <h2 class="score-display">Score: <span class="score">0</span></h2>
+    <h2 class="time-display">Time: <span class="time-left">10</span></h2>
+  </div>
+  <div class="difficulty">
+    <button class="diff-btn" onclick="setDifficulty('easy', this)">Easy</button>
+    <button class="diff-btn active" onclick="setDifficulty('medium', this)">Medium</button>
+    <button class="diff-btn" onclick="setDifficulty('hard', this)">Hard</button>
+    <button class="start-btn" onClick="startGame()">Start!</button>
+  </div>
+
+  <div class="game">
+    <div class="hole hole1">
+      <div class="mole"></div>
+    </div>
+    <div class="hole hole2">
+      <div class="mole"></div>
+    </div>
+    <div class="hole hole3">
+      <div class="mole"></div>
+    </div>
+    <div class="hole hole4">
+      <div class="mole"></div>
+    </div>
+    <div class="hole hole5">
+      <div class="mole"></div>
+    </div>
+    <div class="hole hole6">
+      <div class="mole"></div>
+    </div>
+  </div>
+
+  <script>
+    const holes = document.querySelectorAll('.hole');
+    const scoreBoard = document.querySelector('.score');
+    const moles = document.querySelectorAll('.mole');
+    const timerDisplay = document.querySelector('.time-left');
+    const whackSound = new Audio('whack.mp3');
+    
+    let lastHole;
+    let timeUp = false;
+    let score = 0;
+    let isPlaying = false;
+    let countdown;
+
+    let minTime = 500;
+    let maxTime = 1000;
+
+    function setDifficulty(level, btnElement) {
+      if (isPlaying) return;
+
+      // Remove 'active' class from all difficulty buttons
+      const buttons = document.querySelectorAll('.diff-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      // Add 'active' class to the specific button that was clicked
+      btnElement.classList.add('active');
+
+      if (level === 'easy') {
+        minTime = 800;
+        maxTime = 1500; 
+      } else if (level === 'medium') {
+        minTime = 500;
+        maxTime = 1000; 
+      } else if (level === 'hard') {
+        minTime = 200;
+        maxTime = 600;
+      }
+    }
+    function randomTime(min, max) {
+      return Math.round(Math.random() * (max - min) + min);
+    }
+
+    function randomHole(holes) {
+      const idx = Math.floor(Math.random() * holes.length);
+      const hole = holes[idx];
+      if (hole === lastHole) {
+        console.log('Ah nah thats the same one bud');
+        return randomHole(holes);
+      }
+      lastHole = hole;
+      return hole;
+    }
+
+    function peep() {
+      const time = randomTime(minTime, maxTime);
+      const hole = randomHole(holes);
+      hole.classList.add('up');
+      setTimeout(() => {
+        hole.classList.remove('up');
+        if (!timeUp) peep();
+      }, time);
+    }
+
+    function startGame() {
+      if (isPlaying) return;
+      isPlaying = true;
+      scoreBoard.textContent = 0;
+      timeUp = false;
+      score = 0;
+      let timeLeft = 10;
+      timerDisplay.textContent = timeLeft;
+      clearInterval(countdown); // Clear any existing countdown to prevent multiple timers
+      countdown = setInterval(() => {
+        timeLeft--;
+        timerDisplay.textContent = timeLeft;
+
+        if (timeLeft <= 0) {
+          clearInterval(countdown);
+        }
+      }, 1000);
+
+      peep();
+      setTimeout(() => {
+        timeUp = true;
+        isPlaying = false;
+      }, 10000);
+    }
+
+    function bonk(e) {
+      if (!e.isTrusted) return; // cheater!
+      whackSound.currentTime = 0;
+      whackSound.play();
+      score++;
+      this.parentNode.classList.remove('up');
+      scoreBoard.textContent = score;
+    }
+
+    moles.forEach(mole => mole.addEventListener('click', bonk));
+
+  </script>
+</body>
+
+</html>
