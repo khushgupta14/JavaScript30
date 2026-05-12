@@ -1,0 +1,24 @@
+{
+  "name": "javascript30",
+  "version": "1.0.0",
+  "description": "A 30-day vanilla JavaScript coding challenge by Wes Bos",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khushgupta14/JavaScript30.git"
+  },
+  "keywords": [
+    "javascript",
+    "javascript30",
+    "learning",
+    "tutorial"
+  ],
+  "author": "Khush Gupta",
+  "license": "MIT",
+  "dependencies": {
+    "@vercel/speed-insights": "^2.0.0"
+  }
+}
